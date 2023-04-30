@@ -11,7 +11,7 @@ jobs:
         - name: Tick checkbox in mentioned PRs
           uses: actions/github-script@v6
           env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.TOKEN_CROSS_REPO }}
           with:
             script: |
                   console.log("Bonjour");
