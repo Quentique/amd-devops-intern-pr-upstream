@@ -35,7 +35,7 @@ jobs:
                       }
                       console.log("Issue");
                       console.log(item.source.issue);
-                      if (item.source.pull_request == null) {
+                      if (item.source.issue.pull_request == null) {
                         return;
                       }
 
