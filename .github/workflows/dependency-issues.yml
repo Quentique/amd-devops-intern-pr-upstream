@@ -59,6 +59,7 @@ jobs:
                         const urlPR = context.payload.pull_request.url;
                         console.log("URL of the PR to edit");
                         console.log(urlPR);
+                        console.log(item.body);
 
                         // We edit only comments that contains a link to the current pull request
                         if (!item.body.includes(urlPR)) {
