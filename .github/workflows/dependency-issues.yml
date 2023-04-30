@@ -9,10 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - name: Tick checkbox in mentioned PRs
-          uses: actions/github-script@v6
-          env:
-            GITHUB_TOKEN: ${{ secrets.TOKEN_CROSS_REPO }}
+          uses: actions/github-script@v6 
           with:
+            github-token: ${{ secrets.TOKEN_CROSS_REPO }}
             script: |
                   console.log("Bonjour");
                   console.log(context.repo);
