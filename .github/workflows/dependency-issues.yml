@@ -59,7 +59,7 @@ jobs:
 
                       // Editing all comments from mentioned pull request that contains a link to the current pull request
                       comments_to_edit.forEach(async (item) => {
-                        const urlPR = context.payload.pull_request.html_  url;
+                        const urlPR = context.payload.pull_request.html_url;
                         console.log("URL of the PR to edit");
                         console.log(urlPR);
                         console.log(item.body);
