@@ -30,6 +30,9 @@ jobs:
                         return;
                       }
 
+                      console.log("Interesting item PR");
+                      console.log(item);
+
                       // Retrieving mentioned pull request's details
                       const repo = item.source.issue.repository.name
                       const owner = item.source.issue.repository.owner.login
@@ -45,6 +48,8 @@ jobs:
                       // Editing all comments from mentioned pull request that contains a link to the current pull request
                       comments_to_edit.forEach(async (item) => {
                         const urlPR = context.payload.pull_request.url;
+                        console.log("URL of the PR to edit");
+                        console.log(urlPR);
 
                         // We edit only comments that contains a link to the current pull request
                         if (!item.body.includes(urlPR)) {
@@ -56,6 +61,8 @@ jobs:
 
                         for (let i = 0; i < lines.length; i++) {
                           if (lines[i].includes(urlPR)) {
+                            console.log("Interesting line");
+                            console.log(lines[i]);
                             // We tick the checkbox in the mentioned PR
                             lines[i] = lines[i].replace('[ ]', '[x]');
                           }
