@@ -7,12 +7,14 @@ on:
 jobs:
   tick-mentioned-prs:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
     steps:
         - name: Tick checkbox in mentioned PRs
           uses: actions/github-script@v6
           with:
             script: |
+                  console.log("Bonjour");
+                  console.log(context.repo);
+                  console.log(context.payload);
                   // Retrieve timeline events
                   const {data: comments} = await github.rest.issues.listEventsForTimeline({
                       owner: context.repo.owner,
@@ -20,12 +22,19 @@ jobs:
                       issue_number: context.payload.pull_request.number,
                   })
 
+                  console.log("Results");
+                  console.log(comments);
+
                   // Iterate over timeline events
                   comments.forEach(async (item) => {
                       // Ensure this is a reference to a pull request
+                      
+                      console.log("Inside");
                       if (item.event != "cross-referenced") {
                         return;
                       }
+                      console.log("Issue");
+                      console.log(item.source.issue);
                       if (item.source.pull_request == null) {
                         return;
                       }
