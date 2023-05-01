@@ -13,9 +13,6 @@ jobs:
           with:
             github-token: ${{ secrets.TOKEN_CROSS_REPO }}
             script: |
-                  console.log("Bonjour");
-                  console.log(context.repo);
-                  console.log(context.payload);
                   // Retrieve timeline events
                   const {data: comments} = await github.rest.issues.listEventsForTimeline({
                       owner: context.repo.owner,
@@ -23,25 +20,16 @@ jobs:
                       issue_number: context.payload.pull_request.number,
                   })
 
-                  console.log("Results");
-                  console.log(comments);
-
                   // Iterate over timeline events
                   comments.forEach(async (item) => {
                       // Ensure this is a reference to a pull request
-                      
-                      console.log("Inside");
                       if (item.event != "cross-referenced") {
                         return;
                       }
-                      console.log("Issue");
-                      console.log(item.source.issue);
+
                       if (item.source.issue.pull_request == null) {
                         return;
                       }
-
-                      console.log("Interesting item PR");
-                      console.log(item);
 
                       // Retrieving mentioned pull request's details
                       const repo = item.source.issue.repository.name
@@ -58,9 +46,6 @@ jobs:
                       // Editing all comments from mentioned pull request that contains a link to the current pull request
                       comments_to_edit.forEach(async (item) => {
                         const urlPR = context.payload.pull_request.html_url;
-                        console.log("URL of the PR to edit");
-                        console.log(urlPR);
-                        console.log(item.body);
 
                         // We edit only comments that contains a link to the current pull request
                         if (!item.body.includes(urlPR)) {
@@ -72,8 +57,6 @@ jobs:
 
                         for (let i = 0; i < lines.length; i++) {
                           if (lines[i].includes(urlPR)) {
-                            console.log("Interesting line");
-                            console.log(lines[i]);
                             // We tick the checkbox in the mentioned PR
                             lines[i] = lines[i].replace('[ ]', '[x]');
                           }
